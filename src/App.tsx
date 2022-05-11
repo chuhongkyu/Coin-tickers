@@ -41,6 +41,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   background-color: ${props => props.theme.bgColor};
   color: ${props => props.theme.textColor};
+  display: flex;
+  justify-content: center;
 }
 a{
   text-decoration: none;
