@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { fetchCoins } from "./api";
@@ -73,6 +73,7 @@ const HandleThemeBtn = styled.div<{isClick: boolean}>`
     width: 80px;
     padding: 5px 10px;
     border-radius: 25px;
+    background-color: ${props=>props.theme.contentColor};
     box-shadow:${props => props.theme.clickedStyle};
     display: flex;
     justify-content: ${props => props.isClick? "flex-end":"flex-start"};
@@ -105,6 +106,49 @@ const Img = styled.img`
     margin-right: 10px;
 `
 
+const OpenAnim = keyframes`
+    0%{
+        opacity: 1;
+    }
+    80%{
+        opacity: 0.9;
+        z-index: -10;
+    }
+    100%{
+        opacity: 0;
+        z-index: -10;
+    }
+`
+
+const Opening = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: ${prop =>prop.theme.bgColor};
+    color: ${prop =>prop.theme.textColor};
+    z-index: 10;
+    animation: ${OpenAnim} 2s linear forwards;
+    transition: 0.5s;
+    span{
+        padding: 45px 50px;
+        font-size: 25px;
+        border-radius: 50%;
+        background-color: ${prop =>prop.theme.borderColor};
+    }
+    h1{
+        margin-top: 10px;
+        font-size: 25px;
+    }
+`
+
+
+
 interface ICoin{
         "id": string,
         "name": string,
@@ -125,6 +169,10 @@ function Coins() {
         <Helmet>
             <title>코인</title>
         </Helmet>
+        <Opening>
+            <span>☁︎</span>
+            <h1>by MR.Chu</h1>
+        </Opening>
         <Header>
             <Title>Cloud Coin</Title>
             <HandleThemeBtn isClick={click} onClick={()=> {

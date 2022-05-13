@@ -42,7 +42,6 @@ const CircleBtn = styled.span`
     }
 `
 
-
 const Title = styled.h1`
     font-size: 38px;
     color: ${props=>props.theme.textColor};
