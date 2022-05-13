@@ -35,15 +35,18 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 *{
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: ${props => props.theme.bgColor};
   color: ${props => props.theme.textColor};
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 a{
   text-decoration: none;

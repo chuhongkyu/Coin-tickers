@@ -1,27 +1,48 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Link, useLocation, Routes, Route, useMatch } from "react-router-dom";
+import { Link, useLocation, Routes, Route, useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Price from "./Price";
 import Chart from "./Chart";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "./api";
+import {Helmet} from "react-helmet";
 
 const Container = styled.div`
-    padding: 0px 20px;
-    width: 500px;
+    padding: 10px 15px;
+    width: 400px;
+    height: 98vh;
+    border-radius: 35px;
+    border: 10px solid ${props => props.theme.borderColor};
+    background-color: ${props => props.theme.contentColor};
+    box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    margin-top: 10px;
 `
 
 const Header = styled.header`
     height: 10vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 0px 5px;
 `
 
+const CircleBtn = styled.span`
+    font-size: 15px;
+    color: ${props=>props.theme.cloudColor};
+    padding: 10px 13px;
+    border-radius: 50%;
+    box-shadow: ${props => props.theme.boxShadow};
+    cursor: pointer;
+    &:hover{
+        box-shadow: ${props => props.theme.clickedStyle};
+    }
+`
+
+
 const Title = styled.h1`
-    font-size: 48px;
+    font-size: 38px;
     color: ${props=>props.theme.textColor};
 `
 
@@ -40,8 +61,12 @@ const CoinInfos = styled.div`
     justify-content: space-between;
     align-items: center;
     background-color: ${props=>props.theme.contentColor};
+    box-shadow: 
+    6px 6px 8px 0 rgba(0, 0, 0, 0.25),
+    -4px -4px 6px 0 rgba(255, 255, 255, 0.3);
     border-radius: 25px;
     padding: 10px 20px;
+    margin-top: 15px;
     margin-bottom: 15px;
 `
 
@@ -50,11 +75,13 @@ const CoinInfo = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-size: 25px;
     span:first-child{
         font-size: 10px;
         font-weight: 400;
         text-transform: uppercase;
         margin-bottom: 5px;
+        color: ${props=>props.theme.cloudColor};
     }
 `
 
@@ -66,19 +93,36 @@ const CoinTabs = styled.div`
 
 const CoinTab = styled.span<{isActive: boolean}>`
     width: 100%;
-    height: 80px;
+    border: 5px solid white;
     border-radius: 25px;
+    padding: 10px;
+    box-shadow: ${props => props.isActive ? props.theme.clickedStyle : props.theme.boxShadow};
     margin-right: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: ${props=>props.theme.contentColor};
     color: ${props => props.isActive ? props.theme.accentColor : props.theme.textColor};
+    font-weight: 600;
+    &:hover{
+        box-shadow: ${props => props.theme.clickedStyle};
+    }
 `
 
-const CoinDescript = styled.p`
-    text-align: center; 
+const CoinDescript = styled.div`
+    width: 100%;
+    border-radius: 25px;
+    padding: 10px 15px;
+    color: ${props=>props.theme.cloudColor};
+    box-shadow: 
+    6px 6px 8px 0 rgba(0, 0, 0, 0.25),
+    -4px -4px 6px 0 rgba(255, 255, 255, 0.3);   
     margin-bottom: 20px;
+    h5{
+        color: ${props=>props.theme.textColor};
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
 `
 
 interface RouterState{
@@ -154,15 +198,24 @@ function Coin({}) {
     const {state}= useLocation()as RouterState;
     const priceMatch = useMatch("/:coinId/price");
     const chartMatch = useMatch("/:coinId/chart");
+    const navigate = useNavigate();
 
     const {isLoading: infoLoading, data: infoData} =useQuery<IInfoData>(["info", coinId] ,()=> fetchCoinInfo(coinId!))
-    const {isLoading: tickersLoading, data: tickersData} =useQuery<IPriceData>(["tickers", coinId] ,()=> fetchCoinTickers(coinId!))
+    const {isLoading: tickersLoading, data: tickersData} =useQuery<IPriceData>(["tickers", coinId] ,()=> fetchCoinTickers(coinId!),
+    {
+        refetchInterval: 5000,
+    })
     
     const loading = infoLoading || tickersLoading;
     return (
         <Container>
+            <Helmet>
+                <title>{state? state: loading? "Loading...": infoData?.name}</title>
+            </Helmet>
         <Header>
-            <Title>{state? state: loading? "Loading...": infoData?.name}</Title>
+            <CircleBtn onClick={()=> navigate("/")}>{"<"}</CircleBtn>
+                <Title>{state? state: loading? "Loading...": infoData?.name}</Title>
+            <CircleBtn>☁︎</CircleBtn>
         </Header>
         {loading ? <Loader>Loading...</Loader> : 
         <CoinDetail>
@@ -176,12 +229,13 @@ function Coin({}) {
                     <span>{infoData?.symbol}</span>
                 </CoinInfo>
                 <CoinInfo>
-                    <span>OPEN SOURCE:</span>
-                    <span>{infoData?.open_source? "YES":"NO"}</span>
+                    <span>Price:</span>
+                    <span>$ {tickersData?.quotes.USD.price.toFixed(1)}</span>
                 </CoinInfo>
             </CoinInfos>
 
             <CoinDescript>
+                <h5>Description:</h5>
                 {infoData?.description}
             </CoinDescript>
             <CoinInfos>
@@ -205,7 +259,7 @@ function Coin({}) {
             </CoinTabs>
 
             <Routes>
-                <Route path="price" element={<Price/>}/>
+                <Route path="price" element={<Price coinId={coinId!}/>}/>
                 <Route path="chart" element={<Chart coinId={coinId!}/>}/>
             </Routes>
             
