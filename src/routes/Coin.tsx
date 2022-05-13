@@ -239,7 +239,7 @@ function Coin({}) {
 
             <CoinDescript>
                 <h5>Description:</h5>
-                {infoData?.description}
+                {infoData?.description.substring(0, 100)+"..."}
             </CoinDescript>
             <CoinInfos>
                 <CoinInfo>

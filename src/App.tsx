@@ -50,7 +50,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 a{
   text-decoration: none;
