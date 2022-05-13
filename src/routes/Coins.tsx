@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { fetchCoins } from "./api";
 import { Helmet } from "react-helmet";
-import { useState } from 'react';
-import { lightTheme, darkTheme } from '../theme';
+import { DarkMode } from "../atoms";
+import { useSetRecoilState } from "recoil";
+import { useState } from "react";
 
 const Container = styled.div`
     padding: 10px 15px;
@@ -68,30 +69,28 @@ const Title = styled.h1`
     color: ${props=>props.theme.textColor};
 `
 
-const CircleBtn = styled.span`
-    font-size: 15px;
-    color: ${props=>props.theme.cloudColor};
-    padding: 10px 13px;
-    border-radius: 50%;
-    box-shadow: 
-    6px 6px 8px 0 rgba(0, 0, 0, 0.25),
-    -4px -4px 6px 0 rgba(255, 255, 255, 0.3);
-`
-
-const DarkModeBtn = styled.span<{isDarkMode: boolean}>`
-    width: 100px;
+const HandleThemeBtn = styled.div<{isClick: boolean}>`
+    width: 80px;
+    padding: 5px 10px;
     border-radius: 25px;
+    box-shadow:${props => props.theme.clickedStyle};
     display: flex;
-    justify-content: ${(props) => props.isDarkMode ? "flex-end" :"flex-start"};
-    padding: 5px 7px;
-    box-shadow: ${props => props.theme.clickedStyle};
-    button{
+    justify-content: ${props => props.isClick? "flex-end":"flex-start"};
+    align-items: center;
+    span{
         font-size: 15px;
         color: ${props=>props.theme.cloudColor};
-        padding: 5px 8px;
+        background-color: ${props=>props.theme.contentColor};
+        padding: 5px 10px;
         border-radius: 50%;
-        box-shadow: ${props => props.theme.boxShadow};
-        border-style: none;
+        cursor: pointer;
+        transition: 0.5s;
+        box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, 0.25),
+                    -2px -2px 3px 0 rgba(255, 255, 255, 0.3);
+        &:hover{
+            background-color: ${props=>props.theme.accentColor};
+            transition: 0.5s;
+        }
     }
 `
 
@@ -118,17 +117,20 @@ interface ICoin{
 
 function Coins() {
     const {isLoading, data} = useQuery<ICoin[]>("allCoins", fetchCoins)
-
+    const setDarkAtom = useSetRecoilState(DarkMode);
+    const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
+    const [click, setClick ] = useState(false);
     return (
     <Container>
         <Helmet>
-                <title>코인</title>
+            <title>코인</title>
         </Helmet>
         <Header>
             <Title>Cloud Coin</Title>
-            <DarkModeBtn isDarkMode={false}>
-               <button>☁︎</button> 
-            </DarkModeBtn>
+            <HandleThemeBtn isClick={click} onClick={()=> {
+                    setClick(!click)}}>
+                <span onClick={toggleDarkAtom}>☁︎</span>
+            </HandleThemeBtn>
         </Header>
         {isLoading ? <Loader>Loading...</Loader> :
             <CoinsListDiv>

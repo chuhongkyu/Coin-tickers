@@ -22,7 +22,7 @@ export const darkTheme: DefaultTheme={
     boxShadow:"6px 6px 8px 0 rgba(0, 0, 0, 0.25), -4px -4px 6px 0 rgba(255, 255, 255, 0.3)"
 }
 
-export const theme = {
-    lightTheme,
-    darkTheme,
-}
+// export const theme = {
+//     lightTheme,
+//     darkTheme,
+// }

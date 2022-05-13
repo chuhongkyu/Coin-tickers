@@ -6,6 +6,8 @@ import Chart from "./Chart";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "./api";
 import {Helmet} from "react-helmet";
+import { DarkMode } from "../atoms";
+import { useSetRecoilState } from "recoil";
 
 const Container = styled.div`
     padding: 10px 15px;
@@ -199,6 +201,8 @@ function Coin({}) {
     const priceMatch = useMatch("/:coinId/price");
     const chartMatch = useMatch("/:coinId/chart");
     const navigate = useNavigate();
+    const setDarkAtom = useSetRecoilState(DarkMode);
+    const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
 
     const {isLoading: infoLoading, data: infoData} =useQuery<IInfoData>(["info", coinId] ,()=> fetchCoinInfo(coinId!))
     const {isLoading: tickersLoading, data: tickersData} =useQuery<IPriceData>(["tickers", coinId] ,()=> fetchCoinTickers(coinId!),
@@ -215,7 +219,7 @@ function Coin({}) {
         <Header>
             <CircleBtn onClick={()=> navigate("/")}>{"<"}</CircleBtn>
                 <Title>{state? state: loading? "Loading...": infoData?.name}</Title>
-            <CircleBtn>☁︎</CircleBtn>
+            <CircleBtn onClick={toggleDarkAtom}>☁︎</CircleBtn>
         </Header>
         {loading ? <Loader>Loading...</Loader> : 
         <CoinDetail>
