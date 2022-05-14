@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/Coin-tickers/static/js/main.4a23899e.js",
+    "main.js": "/Coin-tickers/static/js/main.9f307533.js",
     "index.html": "/Coin-tickers/index.html",
-    "main.4a23899e.js.map": "/Coin-tickers/static/js/main.4a23899e.js.map"
+    "main.9f307533.js.map": "/Coin-tickers/static/js/main.9f307533.js.map"
   },
   "entrypoints": [
-    "static/js/main.4a23899e.js"
+    "static/js/main.9f307533.js"
   ]
 }
