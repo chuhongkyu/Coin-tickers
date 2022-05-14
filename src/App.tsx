@@ -4,8 +4,10 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { lightTheme, darkTheme } from './theme';
 import { isDarkAtom } from './atoms';
 import { useRecoilValue } from 'recoil';
+import reset from 'styled-reset'
 
 const GlobalStyle = createGlobalStyle`
+${reset}
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 
