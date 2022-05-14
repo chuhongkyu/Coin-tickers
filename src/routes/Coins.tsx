@@ -10,14 +10,14 @@ import { useState } from "react";
 const Container = styled.div`
     padding: 10px 15px;
     width: 400px;
-    height: 98vh;
+    height: 100vh;
     border-radius: 35px;
     border: 10px solid ${props => props.theme.borderColor};
     background-color: ${props => props.theme.contentColor};
     box-shadow: 
     12px 12px 16px 0 rgba(0, 0, 0, 0.25),
     -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
-    margin-top: 10px;
+    margin-top: 5px;
 `
 
 const Header = styled.header`
@@ -106,7 +106,6 @@ const Img = styled.img`
     margin-right: 10px;
 `
 
-
 interface ICoin{
         "id": string,
         "name": string,
@@ -122,9 +121,9 @@ function Coins() {
     const setDarkMode = useSetRecoilState(isDarkAtom)
     const [toggle, setToggle] = useState(false);
     const toggleDarkMode = ()=> {
-        setDarkMode((prev) => !prev),
+        setDarkMode((prev) => !prev)
         setToggle(!toggle)
-        };
+        }
     return (
     <Container>
         <Helmet>

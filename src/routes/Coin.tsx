@@ -12,14 +12,15 @@ import { isDarkAtom } from "../atoms";
 const Container = styled.div`
     padding: 10px 15px;
     width: 400px;
-    height: 98vh;
+    height: 100vh;
     border-radius: 35px;
     border: 10px solid ${props => props.theme.borderColor};
     background-color: ${props => props.theme.contentColor};
     box-shadow: 
     12px 12px 16px 0 rgba(0, 0, 0, 0.25),
     -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
-    margin-top: 10px;
+    overflow-y: hidden;
+    margin-top: 5px;
 `
 
 const Header = styled.header`
@@ -43,7 +44,7 @@ const CircleBtn = styled.span`
 `
 
 const Title = styled.h1`
-    font-size: 38px;
+    font-size: 30px;
     color: ${props=>props.theme.textColor};
 `
 
@@ -57,7 +58,7 @@ const CoinDetail = styled.div`
 
 const CoinInfos = styled.div`
     width: 100%;
-    height: 80px;
+    height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;

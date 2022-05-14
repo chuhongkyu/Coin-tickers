@@ -4,15 +4,10 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { lightTheme, darkTheme } from './theme';
 import { isDarkAtom } from './atoms';
 import { useRecoilValue } from 'recoil';
-import { useState } from 'react';
 
 const GlobalStyle = createGlobalStyle`
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -51,6 +46,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100vh;
+  overflow-y: hidden;
 }
 a{
   text-decoration: none;
@@ -80,7 +78,7 @@ function App() {
     <>
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <GlobalStyle/>
-      <Router />
+        <Router />
       <ReactQueryDevtools initialIsOpen={true}/>
     </ThemeProvider>
     </>
