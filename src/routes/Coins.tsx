@@ -1,9 +1,9 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { fetchCoins } from "./api";
 import { Helmet } from "react-helmet";
-import { DarkMode } from "../atoms";
+import { isDarkAtom } from "../atoms";
 import { useSetRecoilState } from "recoil";
 import { useState } from "react";
 
@@ -119,9 +119,12 @@ interface ICoin{
 
 function Coins() {
     const {isLoading, data} = useQuery<ICoin[]>("allCoins", fetchCoins)
-    const setDarkAtom = useSetRecoilState(DarkMode);
-    const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
-    const [click, setClick ] = useState(false);
+    const setDarkMode = useSetRecoilState(isDarkAtom)
+    const [toggle, setToggle] = useState(false);
+    const toggleDarkMode = ()=> {
+        setDarkMode((prev) => !prev),
+        setToggle(!toggle)
+        };
     return (
     <Container>
         <Helmet>
@@ -129,9 +132,8 @@ function Coins() {
         </Helmet>
         <Header>
             <Title>Cloud Coin</Title>
-            <HandleThemeBtn isClick={click} onClick={()=> {
-                    setClick(!click)}}>
-                <span onClick={toggleDarkAtom}>☁︎</span>
+            <HandleThemeBtn isClick={toggle}>
+                <span onClick={toggleDarkMode}>☁︎</span>
             </HandleThemeBtn>
         </Header>
         {isLoading ? <Loader>Loading...</Loader> :

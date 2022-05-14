@@ -6,8 +6,8 @@ import Chart from "./Chart";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "./api";
 import {Helmet} from "react-helmet";
-import { DarkMode } from "../atoms";
 import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
     padding: 10px 15px;
@@ -193,15 +193,14 @@ interface IPriceData{
     } ;
 }
 
-
-function Coin({}) {
+function Coin() {
     const {coinId} = useParams();
     const {state}= useLocation()as RouterState;
     const priceMatch = useMatch("/:coinId/price");
     const chartMatch = useMatch("/:coinId/chart");
     const navigate = useNavigate();
-    const setDarkAtom = useSetRecoilState(DarkMode);
-    const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
+    const setDarkMode = useSetRecoilState(isDarkAtom)
+    const toggleDarkMode = ()=> {setDarkMode((prev) => !prev)};
 
     const {isLoading: infoLoading, data: infoData} =useQuery<IInfoData>(["info", coinId] ,()=> fetchCoinInfo(coinId!))
     const {isLoading: tickersLoading, data: tickersData} =useQuery<IPriceData>(["tickers", coinId] ,()=> fetchCoinTickers(coinId!),
@@ -218,7 +217,7 @@ function Coin({}) {
         <Header>
             <CircleBtn onClick={()=> navigate("/")}>{"<"}</CircleBtn>
                 <Title>{state? state: loading? "Loading...": infoData?.name}</Title>
-            <CircleBtn onClick={toggleDarkAtom}>☁︎</CircleBtn>
+            <CircleBtn onClick={toggleDarkMode}>☁︎</CircleBtn>
         </Header>
         {loading ? <Loader>Loading...</Loader> : 
         <CoinDetail>
