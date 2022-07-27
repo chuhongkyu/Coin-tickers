@@ -1,10 +1,10 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import  Router  from './Router';
-import { ReactQueryDevtools } from 'react-query/devtools'
-import { lightTheme, darkTheme } from './theme';
-import { isDarkAtom } from './atoms';
-import { useRecoilValue } from 'recoil';
-import reset from 'styled-reset'
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import Router from "./Router";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { lightTheme, darkTheme } from "./theme";
+import { isDarkAtom } from "./atoms";
+import { useRecoilValue } from "recoil";
+import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -43,14 +43,14 @@ footer, header, hgroup, menu, nav, section {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: ${props => props.theme.bgColor};
-  color: ${props => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 a{
   text-decoration: none;
@@ -72,19 +72,18 @@ table {
 	border-spacing: 0;
 }
 
-`
+`;
 
 function App() {
-  const isDark = useRecoilValue(isDarkAtom)
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <>
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <GlobalStyle/>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <GlobalStyle />
         <Router />
-      <ReactQueryDevtools initialIsOpen={true}/>
-    </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={true} />
+      </ThemeProvider>
     </>
-    
   );
 }
 
