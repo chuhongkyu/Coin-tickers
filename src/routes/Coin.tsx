@@ -18,7 +18,7 @@ import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
   padding: 10px 15px;
-  width: 380px;
+  width: max(30vw, 340px);
   height: 95vh;
   border-radius: 35px;
   border: 10px solid ${(props) => props.theme.borderColor};

@@ -5,6 +5,7 @@ import { lightTheme, darkTheme } from "./theme";
 import { isDarkAtom } from "./atoms";
 import { useRecoilValue } from "recoil";
 import reset from "styled-reset";
+import { useEffect } from "react";
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -76,6 +77,19 @@ table {
 
 function App() {
   const isDark = useRecoilValue(isDarkAtom);
+  const toggleDarkMode = () => {
+    isDark((prev:any) => !prev);
+  };
+
+  useEffect(()=>{
+    if (window.matchMedia) {
+      const query = window.matchMedia('(prefers-color-scheme: dark)');
+      console.log(query.matches)
+      if(query.matches){
+        toggleDarkMode()
+      }
+    }
+  },[])
   return (
     <>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
