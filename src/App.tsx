@@ -3,7 +3,7 @@ import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { lightTheme, darkTheme } from "./theme";
 import { isDarkAtom } from "./atoms";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import reset from "styled-reset";
 import { useEffect } from "react";
 
@@ -77,8 +77,9 @@ table {
 
 function App() {
   const isDark = useRecoilValue(isDarkAtom);
+  const setDark = useSetRecoilState(isDarkAtom)
   const toggleDarkMode = () => {
-    isDark((prev:any) => !prev);
+    setDark((prev:any) => !prev);
   };
 
   useEffect(()=>{
