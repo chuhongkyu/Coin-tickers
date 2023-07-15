@@ -1,10 +1,19 @@
 import 'styles/globals.css'
 import 'styles/_app.scss'
 import type { AppProps } from 'next/app'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import { RecoilRoot } from 'recoil'
+import { 
+  Hydrate,
+  QueryClient,
+  QueryClientProvider, } from '@tanstack/react-query'
+
+
+// const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient());
   
   const resizeHandler = () =>  {
     const maxWidth = 656;
@@ -23,8 +32,15 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <AnimatePresence>
-      <Component {...pageProps} />
-    </AnimatePresence>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <AnimatePresence>
+            <Component {...pageProps} />
+            
+          </AnimatePresence>
+        </Hydrate>
+      </QueryClientProvider>
+    </RecoilRoot>
     )
 }
