@@ -15,7 +15,7 @@ const List = (props:IProp) => {
         <li>
            <Link 
                 href={{
-                    pathname: `/${coin.id}`,
+                    pathname: `/coin/${coin.id}`,
                     query: coin.name,
                     }} >
                 <Image 
