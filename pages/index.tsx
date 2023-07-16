@@ -3,6 +3,7 @@ import Layout from 'components/Layout'
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import { isDarkAtom } from 'utils/atom';
+import Main from 'components/Main';
 import { ReactQueryDevtools } from 'react-query-devtools';
 
 
@@ -38,7 +39,7 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-
+        <Main></Main>
       </Layout>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </>

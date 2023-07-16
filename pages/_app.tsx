@@ -1,4 +1,4 @@
-import 'styles/globals.css'
+import 'styles/global.scss'
 import 'styles/_app.scss'
 import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react'
@@ -10,10 +10,9 @@ import {
   QueryClientProvider, } from '@tanstack/react-query'
 
 
-// const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
   
   const resizeHandler = () =>  {
     const maxWidth = 656;
@@ -21,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
     document.documentElement.style.setProperty('--uw', `${vw}px`);
     document.documentElement.style.setProperty('--100vh', `${window.innerHeight}px`);
   }
+
 
   useEffect(() => {
     resizeHandler()
