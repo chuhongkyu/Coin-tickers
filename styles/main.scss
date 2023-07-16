@@ -22,6 +22,33 @@ body{
     .container{
         ul{
             overflow-y: scroll;
+            li{
+                background-color: $contentColor;
+                color: $textColor;
+                font-weight: 600;
+                box-shadow: $boxShadow;
+                padding: 0px 10px;
+                border-radius: __vw(15px);
+                margin-bottom: __vw(15px);
+                a {
+                    display: flex;
+                    align-items: center;
+                    padding: __vw(20px);
+                    transition: color 0.2s ease-in-out;
+                    img{
+                        margin-right: __vw(20px);
+                    }
+                    h5{
+                        font-size: __vw(22px);
+                    }
+                }
+                &:hover {
+                    box-shadow: $clickedStyle;
+                    a {
+                    color: $accentColor;
+                    }
+                }
+            }
         }
     }
     

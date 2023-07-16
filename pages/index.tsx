@@ -4,7 +4,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import { isDarkAtom } from 'utils/atom';
 import Main from 'components/Main';
-import { ReactQueryDevtools } from 'react-query-devtools';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 
 
 export default function Index() {
@@ -41,7 +42,7 @@ export default function Index() {
       <Layout>
         <Main></Main>
       </Layout>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </>
   )
 }

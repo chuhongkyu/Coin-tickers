@@ -9,7 +9,6 @@ import {
   QueryClient,
   QueryClientProvider, } from '@tanstack/react-query'
 
-
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -37,7 +36,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <Hydrate state={pageProps.dehydratedState}>
           <AnimatePresence>
             <Component {...pageProps} />
-            
           </AnimatePresence>
         </Hydrate>
       </QueryClientProvider>
