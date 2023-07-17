@@ -10,6 +10,10 @@ export async function fetchCoins() {
   return limitedData;
 }
 
+// export async function fetchCoins() {
+//   return fetch(`${BASE_URL}/coins`).then((response) => response.json());
+// }
+
 export function fetchCoinInfo(coinId: string) {
   return fetch(`${BASE_URL}/coins/${coinId}`).then((response) =>
     response.json()

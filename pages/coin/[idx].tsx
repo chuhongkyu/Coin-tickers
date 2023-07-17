@@ -39,6 +39,7 @@ const Coin:React.FC = () => {
                             <div className="loading">Loading...</div>
                         ) : (
                             <div className="detail">
+                                <h1>{infoData?.name}</h1>
                                 <div className="infos">
                                     <div className="info">
                                         <span>RANK:</span>

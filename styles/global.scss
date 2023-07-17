@@ -52,3 +52,21 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+html[data-theme="light"], html {
+    --bg-color:#B5C9E9;
+	--text-color:#4C5972;
+	--accent-color:#070C1F;
+	--border-color:#ffffff;
+	--cloud-color:#6D7D90;
+	--content-color:#e6effc;
+}
+  
+html[data-theme="dark"] {
+	--bg-color:#4C5972;
+    --text-color:#e1e1e1;
+    --accent-color:#ffffff;
+    --border-color:#070C1F;
+    --cloud-color:#6D7D90;
+    --content-color:#1e1e1e;
+}

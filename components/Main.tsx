@@ -1,31 +1,45 @@
 'use client'
 
 import { useQuery } from "@tanstack/react-query";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { fetchCoins } from "utils/api";
+import { isDarkAtom } from "utils/atom";
 import { ICoin } from "utils/interface";
 import List from "./List";
 
 
 
 const Main = () => {
-    const { isLoading, error, data } = useQuery<ICoin[]>({
+    const { isLoading, data } = useQuery<ICoin[]>({
         queryKey: ['Data'],
-        queryFn: fetchCoins,
+        queryFn:  fetchCoins,
     });
+
+    const isDark = useRecoilValue<boolean>(isDarkAtom);
+    const setDark = useSetRecoilState<boolean>(isDarkAtom)
+
+    const toggleDarkMode = () => {
+        setDark((prev) => !prev);
+        if(isDark){
+            window.document.documentElement.setAttribute("data-theme", "dark");
+        }else{
+            window.document.documentElement.setAttribute("data-theme", "light");
+        }
+      };
 
     return(
         <div id="main">
             <div className="wrapper">
                 <div className="btn-container">
-                    <button>
-                        <span>
-                        </span>
+                    <h1>Cloud Coin</h1>
+                    <button onClick={toggleDarkMode}>
+                        <span>☁︎</span>
                     </button>
                 </div>
                 <div className="container">
                     {isLoading ? (<div className="loading">Loading</div>):
                     (<ul>
-                        {data?.map((el) => <List key={el.id} coin={el}></List>)}
+                        {data?.slice(0, 20).map((el) => <List key={el.id} coin={el}></List>)}
                         {/* {data?.map((el) => <li key={el.id}>{el.name}</li>)} */}
                     </ul>)}
                 </div>

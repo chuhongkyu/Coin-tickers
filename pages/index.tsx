@@ -7,17 +7,16 @@ import Main from 'components/Main';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
-
 export default function Index() {
   const isDark = useRecoilValue<boolean>(isDarkAtom);
   const setDark = useSetRecoilState<boolean>(isDarkAtom)
 
   const toggleDarkMode = () => {
-    setDark((prev) => !prev);
+    // setDark((prev) => !prev);
     if(isDark){
-      window.document.body.classList.add('dark');
+      window.document.documentElement.setAttribute("data-theme", "dark");
     }else{
-      window.document.body.classList.remove('dark');
+      window.document.documentElement.setAttribute("data-theme", "light");
     }
   };
 
@@ -26,8 +25,11 @@ export default function Index() {
       const query = window.matchMedia('(prefers-color-scheme: dark)');
       console.log(query.matches)
       if(query.matches){
-        toggleDarkMode()
+        setDark(true);
+      }else{
+        setDark(false);
       }
+      toggleDarkMode()
     }
   },[])
 
