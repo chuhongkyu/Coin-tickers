@@ -16,6 +16,12 @@ const Main = () => {
     return(
         <div id="main">
             <div className="wrapper">
+                <div className="btn-container">
+                    <button>
+                        <span>
+                        </span>
+                    </button>
+                </div>
                 <div className="container">
                     {isLoading ? (<div className="loading">Loading</div>):
                     (<ul>
