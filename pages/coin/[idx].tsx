@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import Chart from "components/Chart"
 import Layout from "components/Layout"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
@@ -42,18 +43,34 @@ const Coin:React.FC = () => {
                                 <h1>{infoData?.name}</h1>
                                 <div className="infos">
                                     <div className="info">
-                                        <span>RANK:</span>
+                                        <span>RANK :</span>
                                         <span>{infoData?.rank}</span>
                                     </div>
                                     <div className="info">
-                                        <span>SYMBOL:</span>
+                                        <span>SYMBOL :</span>
                                         <span>{infoData?.symbol}</span>
                                     </div>
                                     <div className="info">
-                                        <span>Price:</span>
+                                        <span>Price :</span>
                                         <span>$ {tickersData?.quotes.USD.price.toFixed(1)}</span>
                                     </div>
                                 </div>
+                                <div className="infos __supply">
+                                    <div className="info">
+                                        <span>TOTAL :</span>
+                                        <span>{tickersData?.total_supply}</span>
+                                    </div>
+                                    <div className="info">
+                                        <span>MAX :</span>
+                                        <span>{tickersData?.max_supply}</span>
+                                    </div>
+                                </div>
+                                <div className="description">
+                                    <h5>Description:</h5>
+                                    {infoData ? infoData?.description?.length >= 100 ? infoData?.description : infoData?.description.substring(0, 100) + "..." : null}
+                                </div>
+                                
+                                <Chart coinId={idx}/>
                             </div>
                         )}
                         </div>
