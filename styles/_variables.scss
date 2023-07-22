@@ -1,0 +1,12 @@
+// layout
+$basic-width: 390px;
+$max-width: 656px;
+
+$bgColor: var(--bg-color);
+$textColor: var(--text-color);
+$accentColor: var(--accent-color);
+$borderColor: var(--border-color);
+$cloudColor: var(--cloud-color);
+$contentColor: var(--content-color);
+$clickedStyle: rgba(50, 50, 93, 0.25) 0px 15px 30px -6px inset, rgba(0, 0, 0, 0.3) 0px 9px 18px -9px inset;
+$boxShadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.25), -4px -4px 6px 0 rgba(255, 255, 255, 0.3);

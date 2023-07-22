@@ -1,0 +1,17 @@
+@use "sass:math";
+@import './variables';
+
+
+@function __vw($size) {
+  @return calc( var(--uw) *  #{math.div($size, $basic-width) * 100} );
+}
+
+@mixin ellipsis($line) {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  word-wrap: break-word;
+}

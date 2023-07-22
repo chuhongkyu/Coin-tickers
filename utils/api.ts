@@ -1,8 +1,18 @@
 const BASE_URL = `https://api.coinpaprika.com/v1`;
 
 export async function fetchCoins() {
-  return fetch(`${BASE_URL}/coins`).then((response) => response.json());
+  const response = await fetch(`${BASE_URL}/coins`);
+  const data = await response.json();
+
+  // 20개만 반환하도록 데이터를 제한합니다.
+  const limitedData = data.slice(0, 20);
+
+  return limitedData;
 }
+
+// export async function fetchCoins() {
+//   return fetch(`${BASE_URL}/coins`).then((response) => response.json());
+// }
 
 export function fetchCoinInfo(coinId: string) {
   return fetch(`${BASE_URL}/coins/${coinId}`).then((response) =>
