@@ -12,33 +12,33 @@ export default function Index() {
   const isDark = useRecoilValue<boolean>(isDarkAtom);
   const setDark = useSetRecoilState<boolean>(isDarkAtom);
   const router = useRouter()
-
+  
   const toggleDarkMode = () => {
-    // setDark((prev) => !prev);
-    if(isDark){
-      window.document.documentElement.setAttribute("data-theme", "dark");
-    }else{
-      window.document.documentElement.setAttribute("data-theme", "light");
-    }
+    setDark((prev) => !prev); // Recoil 상태를 업데이트하여 테마를 변경합니다.
   };
 
   useEffect(()=>{
     if (window.matchMedia) {
       const query = window.matchMedia('(prefers-color-scheme: dark)');
-      
       if(query.matches){
         setDark(true);
       }else{
         setDark(false);
       }
-      toggleDarkMode()
     }
-    
   },[])
 
-  useEffect(()=> {
-    console.log('router',router.query)
-  },[router])
+  useEffect(() => {
+    if (isDark) {
+      window.document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      window.document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }, [isDark]); 
+
+  // useEffect(()=> {
+  //   console.log('router',router.query)
+  // },[router])
 
   return (
     <>
