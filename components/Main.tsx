@@ -1,6 +1,7 @@
 'use client'
 
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { fetchCoins } from "utils/api";
 import { isDarkAtom } from "utils/atom";
@@ -20,12 +21,19 @@ const Main = () => {
 
     const toggleDarkMode = () => {
         setDark((prev) => !prev);
+    };
+
+    useEffect(() => {
         if(isDark){
-            window.document.documentElement.setAttribute("data-theme", "dark");
+            if (typeof window !== 'undefined') {
+                window.document.documentElement.setAttribute("data-theme", "dark");
+            }
         }else{
-            window.document.documentElement.setAttribute("data-theme", "light");
+            if (typeof window !== 'undefined') {
+                window.document.documentElement.setAttribute("data-theme", "light");
+            }
         }
-      };
+    }, [])
 
     return(
         <div id="main">

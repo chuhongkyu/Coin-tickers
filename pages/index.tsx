@@ -1,3 +1,5 @@
+'use client'
+
 import Head from 'next/head'
 import Layout from 'components/Layout'
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -30,9 +32,13 @@ export default function Index() {
 
   useEffect(() => {
     if (isDark) {
-      window.document.documentElement.setAttribute('data-theme', 'dark');
+      if (typeof window !== 'undefined') {
+        window.document.documentElement.setAttribute('data-theme', 'dark');
+      }
     } else {
-      window.document.documentElement.setAttribute('data-theme', 'light');
+      if (typeof window !== 'undefined') {
+        window.document.documentElement.setAttribute('data-theme', 'light');
+      }
     }
   }, [isDark]); 
 
