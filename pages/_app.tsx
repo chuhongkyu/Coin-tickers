@@ -31,14 +31,17 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <RecoilRoot>
+    
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <AnimatePresence>
-            <Component {...pageProps} />
-          </AnimatePresence>
+          <RecoilRoot>
+            <AnimatePresence>
+              <Component {...pageProps} />
+            </AnimatePresence>
+          </RecoilRoot>
         </Hydrate>
+        
       </QueryClientProvider>
-    </RecoilRoot>
+    
     )
 }
