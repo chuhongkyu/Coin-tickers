@@ -1,5 +1,3 @@
-'use client'
-
 import Head from 'next/head'
 import Layout from 'components/Layout'
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -14,10 +12,6 @@ export default function Index() {
   const isDark = useRecoilValue<boolean>(isDarkAtom);
   const setDark = useSetRecoilState<boolean>(isDarkAtom);
   const router = useRouter()
-  
-  const toggleDarkMode = () => {
-    setDark((prev) => !prev); // Recoil 상태를 업데이트하여 테마를 변경합니다.
-  };
 
   useEffect(()=>{
     if (window.matchMedia) {
@@ -42,9 +36,6 @@ export default function Index() {
     }
   }, [isDark]); 
 
-  // useEffect(()=> {
-  //   console.log('router',router.query)
-  // },[router])
 
   return (
     <>

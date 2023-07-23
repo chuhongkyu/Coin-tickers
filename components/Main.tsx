@@ -1,5 +1,3 @@
-'use client'
-
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
