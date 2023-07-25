@@ -50,20 +50,22 @@ function Chart({coinId}: ChartProps) {
     );
 
     useEffect(()=>{
-      setChart(
-        [{
-          name: "open",
-          volumn: data[0]?.open,
-        },
-        {
-          name: "low",
-          volumn: data[0]?.low,
-        },
-        {
-          name: "high",
-          volumn: data[0]?.high,
-        },
+      if(data){
+        setChart(
+          [{
+            name: "open",
+            volumn: data[0]?.open,
+          },
+          {
+            name: "low",
+            volumn: data[0]?.low,
+          },
+          {
+            name: "high",
+            volumn: data[0]?.high,
+          },
         ])
+      }
     },[data])
 
     return (
