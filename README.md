@@ -1,6 +1,7 @@
 # NEXT
 
-- 넥스트 보일러 플레이트
+- 넥스트로 변경 2307275
+- https://coin-tickers.vercel.app/
 
 ## next.js
 ## typeScript 
